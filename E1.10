@@ -1,0 +1,6 @@
+Commands:
+> docker run -p 127.0.0.1:9999:8080 web-server
+
+The address opened in the browser was localhost:9999.
+
+NOTE: web-server is the image built in E1.8 which is based on devopsdockeruh/simple-web-service but starts the server upon running the container.
