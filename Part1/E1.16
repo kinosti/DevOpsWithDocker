@@ -1,0 +1,14 @@
+I made E1.14 updated backend into a containerized web-service hosted on Render.io.
+
+I first created a new (public) repo at Docker Hub "djalok/updated-backend". Then the commands in CMD:
+
+>docker build . -t backend-updated
+>docker run -p 8080:8080 backend-updated
+>docker tag backend-updated djalok/backend-updated
+>docker push djalok/backend-updated
+
+After this I logged into render.io --> new --> web service and selected "Deploy an existing image from registry",
+I then gave the Image URL as docker.io/djalok/backend-updated:latest (as omitting the versiontag in CMD earlier defaulted to tag "latest").
+As the Image repo was public, no credentials were needed. I then selected a proper name and closest server for the service and selected the free host version --> "Create Web Service".
+
+Access the web-service at https://backend-updated-82ll.onrender.com/ping (only returns "pong" to accessing the site /ping).
