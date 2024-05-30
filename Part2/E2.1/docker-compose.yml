@@ -1,0 +1,10 @@
+# version: '3.8' # Note: this line detailing the version should no longer be used - obsolete
+
+services:
+
+  logger:
+    image: devopsdockeruh/simple-web-service
+    build: .
+    volumes:
+      - ./text.log:/usr/src/app/text.log
+    container_name: loggerCont
