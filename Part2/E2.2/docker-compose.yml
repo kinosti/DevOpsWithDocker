@@ -1,0 +1,16 @@
+# This line is not needed anymore - is obsolite
+version: '3.8'
+
+# services contain the different services (containers) that can be built from this single docker-compose file
+services:
+  # web-server-service is now the service name that can be use in docker compose -commands
+  web-server-service:
+    # image is relative dir path (or repo addr) to a pre-existing image used to run a container. Or if also 'build' exists below, then this is used only as the name of the built image.
+    image: devopsdockeruh/simple-web-service
+    # set the published port (<IP>:)(<hostPCport>:)<containerPort>
+    ports:
+      - 9999:8080
+    # give name that is given to the resulting container
+    container_name: web-server
+    # command(s) to execute when container is run
+    command: server
