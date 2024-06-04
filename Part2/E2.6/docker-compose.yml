@@ -1,0 +1,40 @@
+# This line is not needed anymore - is obsolite
+version: '3.8'
+
+services:
+  frontendser:
+    build: ./example-frontend
+    ports:
+      - 5000:5000
+    container_name: front
+
+  backendser:
+    build: ./example-backend
+    ports:
+      - 8080:8080
+    environment:
+      - REDIS_HOST=redisser
+      - POSTGRES_HOST=db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DATABASE=postgres
+    container_name: back
+
+  redisser:
+    image: redis
+    container_name: red
+    restart: unless-stopped
+
+  db:
+    image: postgres
+    restart: unless-stopped
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    # or set shared memory limit when deploy via swarm stack
+    #volumes:
+    #  - type: tmpfs
+    #    target: /dev/shm
+    #    tmpfs:
+    #      size: 134217728 # 128*2^20 bytes = 128Mb
+    environment:
+      - POSTGRES_PASSWORD=postgres
