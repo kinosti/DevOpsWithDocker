@@ -1,0 +1,45 @@
+# This line is not needed anymore - is obsolite
+version: '3.8'
+
+services:
+  frontendser:
+    build: ./example-frontend
+    container_name: front
+
+  backendser:
+    build: ./example-backend
+    environment:
+      - REDIS_HOST=redisser
+      - POSTGRES_HOST=db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DATABASE=postgres
+    depends_on: 
+      - db
+    container_name: back
+
+  redisser:
+    image: redis
+    container_name: red
+    restart: unless-stopped
+
+  db:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    container_name: dbc
+  
+
+  reverse-proxy:
+    image: nginx:latest
+    ports:
+      - 80:80
+    depends_on:
+      - frontendser
+      - backendser
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    container_name: ngx
