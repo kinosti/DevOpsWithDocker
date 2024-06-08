@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-ENV REQUEST_ORIGIN=http://127.0.0.1
+ENV REQUEST_ORIGIN=http://localhost
 
 RUN go build
 
